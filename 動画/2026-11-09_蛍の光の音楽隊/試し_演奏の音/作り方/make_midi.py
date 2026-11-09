@@ -37,12 +37,12 @@ def song(bpm, with_pipe):
     if with_pipe:
         # バグパイプ（110番）は、旋律が半分すぎたところから、低い音だけをそっと（主役にならない）
         start=int(total*0.47)
-        pp=[(0,bytes([0xC1,109])),(0,bytes([0xB1,7,38])),(0,bytes([0xB1,91,90]))]
+        pp=[(0,bytes([0xC1,109])),(0,bytes([0xB1,7,80])),(0,bytes([0xB1,91,90]))]
         for nn in ('F3',):
-            pp+=[(start,bytes([0x91,N[nn],50])),(total,bytes([0x81,N[nn],0]))]
+            pp+=[(start,bytes([0x91,N[nn],90])),(total,bytes([0x81,N[nn],0]))]
         # 少しずつ大きくする（息を細く削った音から）
         for k in range(12):
-            pp.append((start+k*TPB//2,bytes([0xB1,11,30+k*6])))
+            pp.append((start+k*TPB//2,bytes([0xB1,11,50+k*6])))
         tracks.append(track(pp))
     head=b'MThd'+struct.pack('>IHHH',6,1,len(tracks),TPB)
     return head+b''.join(tracks)
